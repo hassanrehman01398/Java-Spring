@@ -5,12 +5,14 @@
 package com.example.demo.models;
 
 import java.time.LocalDate;
+import java.time.Period;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -36,18 +38,18 @@ public class student {
 
 
     private LocalDate dob;
+    @Transient
     private int age;
 
     public student() {
     }
     
     
-        public student( String name, String email, LocalDate dob, int age) {
+        public student( String name, String email, LocalDate dob) {
      
             this.name = name;
         this.email = email;
         this.dob = dob;
-        this.age = age;
     }
 
     public int getId() {
@@ -83,7 +85,7 @@ public class student {
     }
 
     public int getAge() {
-        return age;
+        return Period.between(dob, LocalDate.now()).getYears();
     }
 
     public void setAge(int age) {
