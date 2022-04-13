@@ -6,10 +6,13 @@ package com.example.demo.controllers;
 
 import com.example.demo.service.StudentService;
 import com.example.demo.models.student;
+import com.example.demo.requests.RegisterationRequest;
+import com.example.demo.service.RegisterationService;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,36 +30,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping(path = "api/v1/student")
-public class RegisterationController {
-    
-    private final StudentService studentService;  
+@RequestMapping(path = "api/v1/registeration")
+@AllArgsConstructor
 
-@Autowired
-    public RegisterationController(StudentService studentService) {
-        this.studentService = studentService;
+public class RegisterationController {
+    private RegisterationService registerationService;
+       public String register(@RequestBody RegisterationRequest request) {
+        return registerationService.register(request);
     }
-    
-    
-    @GetMapping
-        public List<student> getStudents(){
-            return studentService.getStudents();
-        
-        }
-        
-        @PostMapping
-        public void registerNewStudent(@RequestBody student Student){
-        
-        studentService.addNewStudent(Student);
-        }
-        
-        @DeleteMapping(path ="{studentId}")
-        public void deleteStudent(@PathVariable("studentId") Long id){
-studentService.deleteStudent(id);        
-        }
-        
-         @PutMapping(path ="{studentId}")
-        public void updateStudent(@PathVariable("studentId") Long id,@RequestParam(required = false) String name,@RequestParam(required = false) String email){
-studentService.updateStudent(id,name,email);        
-        }
 }
