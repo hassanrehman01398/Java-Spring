@@ -32,7 +32,7 @@ public class student {
            generator = "student_sequence"
    
    )
-    private int id;
+    private Long id;
     private String name;
     private String email;
 
@@ -52,11 +52,11 @@ public class student {
         this.dob = dob;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
